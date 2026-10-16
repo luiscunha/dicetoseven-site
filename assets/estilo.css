@@ -1,0 +1,304 @@
+/*
+ * O site do DiceToSeven: as cores e a letra do jogo, num papel só.
+ *
+ * As cores são as do `theme.css` do jogo, nos dois temas, e o tema segue o do
+ * sistema. A Fredoka é a do nome do jogo (SIL Open Font License 1.1 — ver
+ * `fredoka-LEIA-ME.txt`); o resto do texto é a letra do sistema.
+ */
+
+@font-face {
+  font-family: "Fredoka";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fredoka-600-latin.woff2") format("woff2");
+}
+
+:root {
+  color-scheme: light dark;
+  --ground: #f1f2f0;
+  --surface: #ffffff;
+  --line: #cdd5d3;
+  --ink: #123f3a;
+  --ink-muted: #6b7a7b;
+  --accent: #1b6b62;
+  --on-accent: #f1f2f0;
+  --peca: #1b6b62;
+  --pinta: #e8f3f0;
+  --sombra: 0 1px 1px rgb(18 63 58 / 0.06), 0 3px 8px rgb(18 63 58 / 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #0d1917;
+    --surface: #14231f;
+    --line: #2b403a;
+    --ink: #e3edea;
+    --ink-muted: #8fa3a0;
+    --accent: #3ebb94;
+    --on-accent: #0d1917;
+    --peca: #3ebb94;
+    --pinta: #0d1917;
+    --sombra: 0 1px 2px rgb(0 0 0 / 0.4), 0 4px 12px rgb(0 0 0 / 0.3);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+.pagina {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 2px;
+}
+
+/* ─── O topo: a marca e os idiomas ───────────────────────────────────────── */
+
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.marca img {
+  width: 40px;
+  height: 40px;
+}
+
+/*
+ * O nome como no jogo: o «To» na cor de destaque, e uma peça de uma pinta no
+ * lugar do «o». O «o» continua no texto, só invisível, para o nome se ler e se
+ * copiar inteiro.
+ */
+.nome {
+  font-family: "Fredoka", system-ui, sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+}
+
+.nome-liga {
+  color: var(--accent);
+}
+
+.nome-peca {
+  position: relative;
+  display: inline-block;
+  width: 0.62em;
+  height: 0.62em;
+  margin-inline: 0.07em;
+  border-radius: 0.2em;
+  background: var(--peca);
+  vertical-align: -0.02em;
+}
+
+.nome-peca::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 0.2em;
+  height: 0.2em;
+  margin: auto;
+  border-radius: 50%;
+  background: var(--pinta);
+}
+
+.nome-o {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.idiomas {
+  display: flex;
+  gap: 2px;
+}
+
+.idiomas a {
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: var(--ink-muted);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.idiomas a[aria-current="true"] {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+/* ─── O texto ────────────────────────────────────────────────────────────── */
+
+h1 {
+  margin: 36px 0 4px;
+  font-family: "Fredoka", system-ui, sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h2 {
+  margin: 28px 0 6px;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+p,
+ul {
+  margin: 0 0 12px;
+}
+
+ul {
+  padding-left: 1.2em;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+.data {
+  color: var(--ink-muted);
+  font-size: 14px;
+}
+
+.cartao {
+  margin: 20px 0;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--sombra);
+}
+
+.cartao p:last-child {
+  margin-bottom: 0;
+}
+
+.destaque {
+  font-size: 18px;
+}
+
+/* As perguntas frequentes: a pergunta em negrito, a resposta por baixo. */
+.perguntas dt {
+  margin-top: 18px;
+  font-weight: 650;
+}
+
+.perguntas dd {
+  margin: 4px 0 0;
+}
+
+/* ─── A página de entrada ────────────────────────────────────────────────── */
+
+.entrada {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.entrada img {
+  width: 128px;
+  height: 128px;
+  filter: drop-shadow(0 4px 6px rgb(18 63 58 / 0.18));
+}
+
+.entrada .nome {
+  font-size: 40px;
+}
+
+.entrada .destaque {
+  max-width: 30em;
+  margin-top: 8px;
+}
+
+.pastilha {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.lista-jogo {
+  display: inline-grid;
+  gap: 4px;
+  margin: 16px auto 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+/* O quadrado fica à parte do texto, para a segunda linha alinhar com a primeira. */
+.lista-jogo li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.lista-jogo li::before {
+  content: "";
+  position: absolute;
+  top: 0.55em;
+  left: 2px;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+/* ─── O rodapé ───────────────────────────────────────────────────────────── */
+
+.rodape {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-muted);
+  font-size: 14px;
+}
+
+.entrada + .rodape,
+.rodape-centro {
+  justify-content: center;
+}

@@ -1,0 +1,5 @@
+# As skills dos agentes de IA instaladas nesta pasta. São ferramentas de
+# trabalho, não parte do site, e o GitHub Pages publica tudo o que entra no
+# repositório.
+.agents/
+skills-lock.json

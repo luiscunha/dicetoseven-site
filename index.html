@@ -4,16 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DiceToSeven</title>
-  <meta name="description" content="DiceToSeven — a dice puzzle with a single rule: join touching pieces until they add up to 7.">
+  <meta name="description" content="DiceToSeven — a dice puzzle with a single rule: join touching pieces until they add up to 7. Every level can be solved, and a computer checked.">
   <meta name="color-scheme" content="only light">
   <meta name="theme-color" content="#f3f5f4">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DiceToSeven — a dice puzzle">
+  <meta property="og:description" content="One rule: join touching dice until they add up to 7. 133 levels, every one solvable. No ads, no purchases.">
+  <meta property="og:url" content="https://luiscunha.github.io/dicetoseven-site/">
+  <meta property="og:image" content="https://luiscunha.github.io/dicetoseven-site/assets/partilha.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/icone-180.png">
   <link rel="stylesheet" href="assets/estilo.css">
   <script src="assets/idioma.js" defer></script>
 </head>
 <body>
-<div class="pagina">
+<div class="montra">
 
   <header class="topo">
     <span></span>
@@ -25,57 +33,186 @@
     </nav>
   </header>
 
-  <main class="entrada">
-    <img src="assets/icone.svg" alt="" width="128" height="128">
-    <h1 class="nome">Dice<span class="nome-liga">T<span class="nome-peca" aria-hidden="true"></span><span class="nome-o">o</span></span>Seven</h1>
+  <main>
 
-    <div data-idioma="pt" lang="pt-PT" data-titulo="DiceToSeven — um puzzle de dados">
-      <p class="destaque">Um puzzle de dados com uma regra só: junta peças encostadas até somarem&nbsp;7.</p>
-      <ul class="lista-jogo">
-        <li>Uma campanha de puzzles, capítulo a capítulo</li>
-        <li>Contra-Relógio e Survival</li>
-        <li>Um Desafio do dia, igual para toda a gente</li>
-        <li>Medalhas para conquistar</li>
-        <li>Sem anúncios, sem compras, sem internet</li>
-      </ul>
-      <p><span class="pastilha">Em breve na App Store e no Google Play</span></p>
+    <!-- ─── A entrada: o nome, a regra, e o jogo ────────────────────────────── -->
+    <section class="abertura">
+      <div class="abertura-texto">
+        <img class="abertura-icone" src="assets/icone.svg" alt="" width="96" height="96">
+        <h1 class="nome">Dice<span class="nome-liga">T<span class="nome-peca" aria-hidden="true"></span><span class="nome-o">o</span></span>Seven</h1>
+
+        <div data-idioma="pt" lang="pt-PT" data-titulo="DiceToSeven — um puzzle de dados">
+          <p class="destaque">Um puzzle de dados com uma regra só: junta peças encostadas até somarem&nbsp;7.</p>
+          <p><span class="pastilha">Em breve na App Store e no Google Play</span></p>
+        </div>
+        <div data-idioma="en" lang="en-GB" data-titulo="DiceToSeven — a dice puzzle">
+          <p class="destaque">A dice puzzle with a single rule: join touching pieces until they add up to&nbsp;7.</p>
+          <p><span class="pastilha">Coming soon to the App Store and Google Play</span></p>
+        </div>
+        <div data-idioma="es" lang="es-ES" data-titulo="DiceToSeven — un puzle de dados">
+          <p class="destaque">Un puzle de dados con una sola regla: junta fichas pegadas hasta que sumen&nbsp;7.</p>
+          <p><span class="pastilha">Muy pronto en App Store y Google Play</span></p>
+        </div>
+        <div data-idioma="fr" lang="fr-FR" data-titulo="DiceToSeven — un puzzle de dés">
+          <p class="destaque">Un puzzle de dés avec une seule règle&#8239;: réunis des pièces qui se touchent jusqu’à faire&nbsp;7.</p>
+          <p><span class="pastilha">Bientôt sur l’App Store et Google Play</span></p>
+        </div>
+      </div>
+
+      <div class="abertura-ecra">
+        <img data-idioma="pt" src="assets/capturas/pt/01-nivel.webp" alt="Junta dados que somem 7: um nível do jogo, com um grupo a meio" width="720" height="1280" loading="lazy">
+        <img data-idioma="en" src="assets/capturas/en/01-nivel.webp" alt="Join dice that add up to 7: a level of the game, with a group half picked" width="720" height="1280" loading="lazy">
+        <img data-idioma="es" src="assets/capturas/es/01-nivel.webp" alt="Junta dados que sumen 7: un nivel del juego, con un grupo a medias" width="720" height="1280" loading="lazy">
+        <img data-idioma="fr" src="assets/capturas/fr/01-nivel.webp" alt="Réunis des dés qui font 7 : un niveau du jeu, avec un groupe en cours" width="720" height="1280" loading="lazy">
+      </div>
+    </section>
+
+    <!-- ─── Por dentro do jogo: as capturas das lojas ───────────────────────── -->
+    <section class="bloco">
+      <h2 data-idioma="pt" lang="pt-PT">Por dentro do jogo</h2>
+      <h2 data-idioma="en" lang="en-GB">Inside the game</h2>
+      <h2 data-idioma="es" lang="es-ES">Por dentro del juego</h2>
+      <h2 data-idioma="fr" lang="fr-FR">Le jeu de l’intérieur</h2>
+
+      <p class="bloco-texto" data-idioma="pt" lang="pt-PT">Uma campanha de 133 níveis, o Contra-Relógio, o Survival e um desafio novo todos os dias.</p>
+      <p class="bloco-texto" data-idioma="en" lang="en-GB">A 133-level campaign, Time Attack, Survival, and a new challenge every day.</p>
+      <p class="bloco-texto" data-idioma="es" lang="es-ES">Una campaña de 133 niveles, Contrarreloj, Supervivencia y un desafío nuevo cada día.</p>
+      <p class="bloco-texto" data-idioma="fr" lang="fr-FR">Une campagne de 133 niveaux, le Contre-la-montre, la Survie et un nouveau défi chaque jour.</p>
+    </section>
+
+    <div class="galeria" data-idioma="pt" lang="pt-PT">
+      <img src="assets/capturas/pt/02-capitulo.webp" alt="133 níveis, todos com solução" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/pt/03-tempo.webp" alt="Contra o relógio, faz combos" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/pt/04-survival.webp" alt="Aguenta as linhas a cair" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/pt/05-desafio.webp" alt="Um desafio novo cada dia" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/pt/06-medalhas.webp" alt="23 medalhas para conquistar" width="720" height="1280" loading="lazy">
+    </div>
+    <div class="galeria" data-idioma="en" lang="en-GB">
+      <img src="assets/capturas/en/02-capitulo.webp" alt="133 levels, every one solvable" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/en/03-tempo.webp" alt="Race the clock, chain combos" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/en/04-survival.webp" alt="Hold out as the rows drop" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/en/05-desafio.webp" alt="A new challenge every day" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/en/06-medalhas.webp" alt="23 medals to collect" width="720" height="1280" loading="lazy">
+    </div>
+    <div class="galeria" data-idioma="es" lang="es-ES">
+      <img src="assets/capturas/es/02-capitulo.webp" alt="133 niveles, todos con solución" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/es/03-tempo.webp" alt="Contra el reloj, haz combos" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/es/04-survival.webp" alt="Aguanta las filas que caen" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/es/05-desafio.webp" alt="Un desafío nuevo cada día" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/es/06-medalhas.webp" alt="23 medallas por conseguir" width="720" height="1280" loading="lazy">
+    </div>
+    <div class="galeria" data-idioma="fr" lang="fr-FR">
+      <img src="assets/capturas/fr/02-capitulo.webp" alt="133 niveaux, tous résolubles" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/fr/03-tempo.webp" alt="Contre la montre, enchaîne" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/fr/04-survival.webp" alt="Tiens bon face aux lignes" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/fr/05-desafio.webp" alt="Un nouveau défi chaque jour" width="720" height="1280" loading="lazy">
+      <img src="assets/capturas/fr/06-medalhas.webp" alt="23 médailles à obtenir" width="720" height="1280" loading="lazy">
     </div>
 
-    <div data-idioma="en" lang="en-GB" data-titulo="DiceToSeven — a dice puzzle">
-      <p class="destaque">A dice puzzle with a single rule: join touching pieces until they add up to&nbsp;7.</p>
-      <ul class="lista-jogo">
-        <li>A puzzle campaign, chapter by chapter</li>
-        <li>Time Attack and Survival</li>
-        <li>A Daily Challenge, the same for everyone</li>
-        <li>Medals to earn</li>
-        <li>No ads, no purchases, no internet needed</li>
-      </ul>
-      <p><span class="pastilha">Coming soon to the App Store and Google Play</span></p>
-    </div>
+    <!-- ─── O rigor: como se faz cada nível ─────────────────────────────────── -->
+    <section class="bloco rigor">
+      <div class="rigor-titulo">
+        <h2 data-idioma="pt" lang="pt-PT">Todos os níveis têm solução. Um computador confirmou.</h2>
+        <h2 data-idioma="en" lang="en-GB">Every level can be solved. A computer checked.</h2>
+        <h2 data-idioma="es" lang="es-ES">Todos los niveles tienen solución. Un ordenador lo comprobó.</h2>
+        <h2 data-idioma="fr" lang="fr-FR">Tous les niveaux ont une solution. Un ordinateur l’a vérifié.</h2>
 
-    <div data-idioma="es" lang="es-ES" data-titulo="DiceToSeven — un puzle de dados">
-      <p class="destaque">Un puzle de dados con una sola regla: junta fichas pegadas hasta que sumen&nbsp;7.</p>
-      <ul class="lista-jogo">
-        <li>Una campaña de puzles, capítulo a capítulo</li>
-        <li>Contrarreloj y Supervivencia</li>
-        <li>Un Desafío diario, el mismo para todos</li>
-        <li>Medallas por conseguir</li>
-        <li>Sin anuncios, sin compras, sin internet</li>
-      </ul>
-      <p><span class="pastilha">Muy pronto en App Store y Google Play</span></p>
-    </div>
+        <p class="bloco-texto" data-idioma="pt" lang="pt-PT">E quase mil testes automáticos correm antes de cada versão do jogo.</p>
+        <p class="bloco-texto" data-idioma="en" lang="en-GB">And nearly a thousand automated tests run before every version of the game.</p>
+        <p class="bloco-texto" data-idioma="es" lang="es-ES">Y casi mil pruebas automáticas se ejecutan antes de cada versión del juego.</p>
+        <p class="bloco-texto" data-idioma="fr" lang="fr-FR">Et près de mille tests automatiques tournent avant chaque version du jeu.</p>
+      </div>
 
-    <div data-idioma="fr" lang="fr-FR" data-titulo="DiceToSeven — un puzzle de dés">
-      <p class="destaque">Un puzzle de dés avec une seule règle&#8239;: réunis des pièces qui se touchent jusqu’à faire&nbsp;7.</p>
-      <ul class="lista-jogo">
-        <li>Une campagne de puzzles, chapitre par chapitre</li>
-        <li>Contre-la-montre et Survie</li>
-        <li>Un Défi du jour, le même pour tous</li>
-        <li>Des médailles à obtenir</li>
-        <li>Sans publicité, sans achats, sans internet</li>
+      <ol class="passos">
+        <li>
+          <span class="dado" data-face="1" aria-hidden="true"><i></i></span>
+          <div data-idioma="pt" lang="pt-PT"><h3>Feito de trás para a frente</h3><p>Cada nível nasce de um tabuleiro vazio. O gerador junta grupos que somam 7, um a um, e confirma cada um a refazer a jogada.</p></div>
+          <div data-idioma="en" lang="en-GB"><h3>Built backwards</h3><p>Every level starts as an empty board. The generator adds groups that make 7, one at a time, and checks each one by replaying the move.</p></div>
+          <div data-idioma="es" lang="es-ES"><h3>Construido al revés</h3><p>Cada nivel nace de un tablero vacío. El generador añade grupos que suman 7, uno a uno, y comprueba cada uno rehaciendo la jugada.</p></div>
+          <div data-idioma="fr" lang="fr-FR"><h3>Construit à l’envers</h3><p>Chaque niveau part d’un plateau vide. Le générateur ajoute des groupes qui font 7, un par un, et vérifie chacun en rejouant le coup.</p></div>
+        </li>
+        <li>
+          <span class="dado" data-face="2" aria-hidden="true"><i></i><i></i></span>
+          <div data-idioma="pt" lang="pt-PT"><h3>Resolvido antes de chegar a ti</h3><p>A solução vai guardada com o nível. E a cada versão do jogo, um teste gera centenas de níveis e confirma que cada solução guardada esvazia o tabuleiro.</p></div>
+          <div data-idioma="en" lang="en-GB"><h3>Solved before it reaches you</h3><p>The solution ships with the level. And with every version of the game, a test generates hundreds of levels and checks that each stored solution clears its board.</p></div>
+          <div data-idioma="es" lang="es-ES"><h3>Resuelto antes de llegar a ti</h3><p>La solución se guarda con el nivel. Y en cada versión del juego, una prueba genera cientos de niveles y comprueba que cada solución guardada vacía su tablero.</p></div>
+          <div data-idioma="fr" lang="fr-FR"><h3>Résolu avant de t’arriver</h3><p>La solution est livrée avec le niveau. Et à chaque version du jeu, un test génère des centaines de niveaux et vérifie que chaque solution enregistrée vide son plateau.</p></div>
+        </li>
+        <li>
+          <span class="dado" data-face="3" aria-hidden="true"><i></i><i></i><i></i></span>
+          <div data-idioma="pt" lang="pt-PT"><h3>Dificuldade medida, não adivinhada</h3><p>Cada tabuleiro é jogado ao acaso pelo menos mil vezes. A parte dessas partidas que chega ao fim decide o capítulo onde entra.</p></div>
+          <div data-idioma="en" lang="en-GB"><h3>Difficulty measured, not guessed</h3><p>Every board is played at random at least a thousand times. The share of those games that reach the end decides its chapter.</p></div>
+          <div data-idioma="es" lang="es-ES"><h3>Dificultad medida, no adivinada</h3><p>Cada tablero se juega al azar al menos mil veces. La parte de esas partidas que llega al final decide su capítulo.</p></div>
+          <div data-idioma="fr" lang="fr-FR"><h3>Difficulté mesurée, pas devinée</h3><p>Chaque plateau est joué au hasard au moins mille fois. La part de ces parties qui va jusqu’au bout décide de son chapitre.</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ─── Os números ──────────────────────────────────────────────────────── -->
+    <section class="numeros">
+      <div><strong>133</strong><span data-idioma="pt" lang="pt-PT">níveis</span><span data-idioma="en" lang="en-GB">levels</span><span data-idioma="es" lang="es-ES">niveles</span><span data-idioma="fr" lang="fr-FR">niveaux</span></div>
+      <div><strong>4</strong><span data-idioma="pt" lang="pt-PT">maneiras de jogar</span><span data-idioma="en" lang="en-GB">ways to play</span><span data-idioma="es" lang="es-ES">formas de jugar</span><span data-idioma="fr" lang="fr-FR">façons de jouer</span></div>
+      <div><strong>23</strong><span data-idioma="pt" lang="pt-PT">medalhas</span><span data-idioma="en" lang="en-GB">medals</span><span data-idioma="es" lang="es-ES">medallas</span><span data-idioma="fr" lang="fr-FR">médailles</span></div>
+      <div><strong>0</strong><span data-idioma="pt" lang="pt-PT">dados recolhidos</span><span data-idioma="en" lang="en-GB">data collected</span><span data-idioma="es" lang="es-ES">datos recogidos</span><span data-idioma="fr" lang="fr-FR">donnée collectée</span></div>
+    </section>
+
+    <!-- ─── Justo e simples ─────────────────────────────────────────────────── -->
+    <section class="bloco justo">
+      <h2 data-idioma="pt" lang="pt-PT">Sem anúncios. Sem compras. Sem truques.</h2>
+      <h2 data-idioma="en" lang="en-GB">No ads. No purchases. No tricks.</h2>
+      <h2 data-idioma="es" lang="es-ES">Sin anuncios. Sin compras. Sin trucos.</h2>
+      <h2 data-idioma="fr" lang="fr-FR">Sans publicité. Sans achats. Sans pièges.</h2>
+
+      <ul class="lista-jogo" data-idioma="pt" lang="pt-PT">
+        <li>Joga-se sem internet, em qualquer lado</li>
+        <li>Sem conta: o progresso fica no teu telemóvel</li>
+        <li>Tema claro e escuro, como o do sistema</li>
+        <li>Em português, inglês, espanhol e francês</li>
       </ul>
-      <p><span class="pastilha">Bientôt sur l’App Store et Google Play</span></p>
-    </div>
+      <ul class="lista-jogo" data-idioma="en" lang="en-GB">
+        <li>Plays offline, anywhere</li>
+        <li>No account: your progress stays on your phone</li>
+        <li>Light and dark themes, following your system</li>
+        <li>In English, Portuguese, Spanish and French</li>
+      </ul>
+      <ul class="lista-jogo" data-idioma="es" lang="es-ES">
+        <li>Se juega sin internet, en cualquier sitio</li>
+        <li>Sin cuenta: tu progreso se queda en tu móvil</li>
+        <li>Tema claro y oscuro, según el del sistema</li>
+        <li>En español, portugués, inglés y francés</li>
+      </ul>
+      <ul class="lista-jogo" data-idioma="fr" lang="fr-FR">
+        <li>Se joue hors ligne, partout</li>
+        <li>Sans compte&#8239;: ta progression reste sur ton téléphone</li>
+        <li>Thème clair et sombre, comme celui du système</li>
+        <li>En français, portugais, anglais et espagnol</li>
+      </ul>
+    </section>
+
+    <!-- ─── A beta, no Instagram ────────────────────────────────────────────── -->
+    <section class="convite">
+      <div data-idioma="pt" lang="pt-PT">
+        <h2>Queres jogar antes de toda a gente?</h2>
+        <p>A beta está no Instagram. Segue a @dicetoseven e comenta BETA no post fixado.</p>
+        <a class="botao" href="https://www.instagram.com/dicetoseven/" target="_blank" rel="noopener">Seguir no Instagram</a>
+      </div>
+      <div data-idioma="en" lang="en-GB">
+        <h2>Want to play before anyone else?</h2>
+        <p>The beta lives on Instagram. Follow @dicetoseven and comment BETA on the pinned post.</p>
+        <a class="botao" href="https://www.instagram.com/dicetoseven/" target="_blank" rel="noopener">Follow on Instagram</a>
+      </div>
+      <div data-idioma="es" lang="es-ES">
+        <h2>¿Quieres jugar antes que nadie?</h2>
+        <p>La beta está en Instagram. Sigue a @dicetoseven y comenta BETA en la publicación fijada.</p>
+        <a class="botao" href="https://www.instagram.com/dicetoseven/" target="_blank" rel="noopener">Seguir en Instagram</a>
+      </div>
+      <div data-idioma="fr" lang="fr-FR">
+        <h2>Envie de jouer avant tout le monde&#8239;?</h2>
+        <p>La bêta est sur Instagram. Suis @dicetoseven et commente BETA sous la publication épinglée.</p>
+        <a class="botao" href="https://www.instagram.com/dicetoseven/" target="_blank" rel="noopener">Suivre sur Instagram</a>
+      </div>
+    </section>
+
   </main>
 
   <footer class="rodape rodape-centro">

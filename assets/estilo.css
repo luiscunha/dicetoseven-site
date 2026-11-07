@@ -588,7 +588,7 @@ strong {
 .lista-jogo li:nth-child(4)::before { background: var(--face-5); }
 .lista-jogo li:nth-child(5)::before { background: var(--face-6); }
 
-/* O convite para a beta, no fim: o único botão da página. */
+/* O convite para o Instagram, no fim. */
 .convite {
   margin-top: 72px;
   padding: 40px 24px;
@@ -625,9 +625,10 @@ strong {
 }
 
 /*
- * O «Em breve»: uma pílula escura com um anel de luz à volta, nas cores das
+ * As lojas: duas pílulas escuras com um anel de luz à volta, nas cores das
  * faces do jogo, que roda devagar — à maneira do brilho do Apple Intelligence.
- * É o único elemento da página que se mexe, e é de propósito: é a notícia.
+ * Eram o «Em breve», e passaram a ser as ligações. São o único elemento da
+ * página que se mexe, e é de propósito: é a notícia, e é o que se toca.
  *
  * O anel é o fundo da própria borda (`border-box`), por baixo do fundo escuro
  * (`padding-box`). O halo é um `::before` desfocado atrás da pílula: sem
@@ -704,6 +705,42 @@ strong {
   to {
     --angulo: 360deg;
   }
+}
+
+/* As duas lado a lado, e uma por cima da outra só se não couberem. */
+.lojas-texto {
+  margin: 28px 0 0;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.lojas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 16px;
+}
+
+.lojas .pastilha {
+  margin-top: 14px;
+  min-width: 9.5em;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: transform 150ms ease;
+}
+
+.lojas .pastilha:hover {
+  color: var(--on-accent);
+  transform: translateY(-1px);
+}
+
+.lojas .pastilha:active {
+  transform: translateY(1px);
+}
+
+.lojas .pastilha:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
 }
 
 /* ─── O rodapé ───────────────────────────────────────────────────────────── */

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Building puzzles backwards — DiceToSeven</title>
+  <meta name="description" content="How every level of DiceToSeven is guaranteed to have a solution: reverse construction checked by forward simulation, and a round-trip test over thousands of boards.">
+  <meta name="color-scheme" content="only light">
+  <meta name="theme-color" content="#f3f5f4">
+  <meta name="author" content="Luís Cunha">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Building puzzles backwards">
+  <meta property="og:description" content="How every level of DiceToSeven is guaranteed to have a solution, and how I check that the guarantee holds.">
+  <meta property="og:url" content="https://luiscunha.github.io/dicetoseven-site/building-levels-backwards.html">
+  <meta property="og:image" content="https://luiscunha.github.io/dicetoseven-site/assets/partilha.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icone-180.png">
+  <link rel="stylesheet" href="assets/estilo.css">
+  <meta name="apple-itunes-app" content="app-id=6830374682">
+  <script src="assets/artigo.js" defer></script>
+</head>
+<body>
+<div class="pagina">
+
+  <header class="topo">
+    <a class="marca" href="./">
+      <img src="assets/icone.svg" alt="" width="40" height="40">
+      <span class="nome">Dice<span class="nome-liga">T<span class="nome-peca" aria-hidden="true"></span><span class="nome-o">o</span></span>Seven</span>
+    </a>
+  </header>
+
+  <main class="artigo">
+    <article>
+      <h1>Building puzzles backwards</h1>
+      <p class="entrada">How every level of DiceToSeven is guaranteed to have a solution, and how I check that the guarantee holds.</p>
+      <p class="data">Luís Cunha · 10 November 2026 · 9 min read</p>
+
+      <h2>The game in one paragraph</h2>
+      <p>DiceToSeven is a puzzle about dice faces. You tap pieces that touch, edge to edge, until they add up to exactly 7, and they vanish. The pieces above fall down, and when a column empties, the columns to its right slide left to close the gap. You win when the board is empty. That’s the whole game. It’s free on iPhone, iPad and Android, with no ads and no purchases.</p>
+      <p>One rule turned out to matter more than I expected: groups that form after a move don’t clear on their own. If they did, the board would follow a path you didn’t choose, and an automatic clear can walk a solvable board into a dead end. Every move in DiceToSeven is a move you made.</p>
+
+      <h2>Why it needs a guarantee</h2>
+      <p>It’s easy to get stuck. Clear the wrong 3+4 and the 4 you needed for a 1+2+4 is gone. Three moves later there’s a 5 left with no 2 anywhere near it. When that happens, the game has to be able to say, honestly: <em>there was a way</em>. Undo, restart, or ask for a hint.</p>
+      <p>That promise is worthless if even one level is impossible. A player who hits an unwinnable board learns that being stuck might not be their fault, and stops trusting every other level. So the whole project is built around one property: <strong>no published level is impossible</strong>.</p>
+
+      <h2>Generate, then solve? No.</h2>
+      <p>The obvious approach is to deal random dice and keep the boards a solver can clear. The sum gives a quick filter: every move removes exactly 7, so a solvable board must add up to a multiple of 7. But that’s necessary, not sufficient, and beyond it you’re searching.</p>
+      <p>I do have a solver. It’s a depth-first search that remembers every state it has proved hopeless. That memory isn’t an optimisation: moves in different parts of the board commute, so the same state is reached in many different orders, and without it the search explodes. It works, and the game uses it for hints. But if the guarantee rested on it, the guarantee would only be as good as the solver, and only for the boards it finishes within its time budget.</p>
+      <p>I wanted the guarantee to come from how a level is made, not from a check afterwards.</p>
+
+      <h2>Start from the empty board</h2>
+      <p>So the generator plays the game in reverse. It starts with nothing and inserts one group that adds up to 7, then another, and another, until the board is the size it wants. There are 14 ways to make 7 from faces 1 to 6, from 1+6 up to seven 1s, and the mix of them is one of the dials for difficulty.</p>
+      <p>Inserting is the opposite of clearing. A die inserted into a column pushes the dice above it up by one; a die in a new column pushes the columns to its right one place along. If every insertion is the reverse of a legal move, the steps read backwards are a solution. Nobody has to ask whether the level can be solved: it ships with the proof.</p>
+      <p>Here is a real Beginner level. Clear it with the solution it ships with, then watch the generator build it again from nothing.</p>
+
+      <figure class="figura" data-demo="[[2,2,3,4,2,1],[3,3,4],[2,2,3,2,2],[2,3,2,4],[1,2]]" data-solucao="[[2,3],[1,2,65],[130,131,194],[129,130,193],[0,1,65],[0,64,128],[0,64,65]]">
+        <div class="tabuleiro"></div>
+        <p class="demo-legenda" aria-live="polite"></p>
+        <div class="demo-controlos">
+          <button type="button" data-acao="tirar" aria-label="Clear one group">◀ Clear</button>
+          <button type="button" data-acao="tudo" class="principal">Build it</button>
+          <button type="button" data-acao="por" aria-label="Insert one group">Insert ▶</button>
+        </div>
+        <ol class="demo-passos" aria-label="The groups, in the order they are inserted"></ol>
+        <figcaption>Level <code>inicio-000134</code> and the solution stored with it. “Solve it” clears the groups in the order the solution gives; “Build it” inserts them again from the empty board, in the order the generator did. The ringed group is the last one inserted, which is also the next one to clear. Watch move 5: clearing 2+1+4 empties the first column, and the columns to its right slide left.</figcaption>
+      </figure>
+
+      <h2>The catch: gravity doesn’t run backwards</h2>
+      <p>Inserting looks like the mirror image of clearing, but it isn’t quite. Gravity and column collapse throw information away: after a clear, nothing on the board says where the removed dice were. So an insertion can look right and still not be the reverse of any legal move.</p>
+      <p>Here’s the kind of thing that goes wrong. The generator is placing the group 1+2+4. It puts the 1 and the 2 side by side, then puts the 4 in a new column, and that new column slides in between them.</p>
+
+      <figure class="figura">
+        <div class="figura-par">
+          <div>
+            <div class="tabuleiro" data-tabuleiro="[[5,1],[6,2]]" data-marcadas="[[0,1],[1,1]]"></div>
+            <span class="figura-rotulo">The 1 and the 2 touch</span>
+          </div>
+          <div>
+            <div class="tabuleiro" data-tabuleiro="[[5,1],[4],[6,2]]" data-marcadas="[[0,1],[1,0],[2,1]]"></div>
+            <span class="figura-rotulo recusado">The 4 arrives: rejected</span>
+          </div>
+        </div>
+        <figcaption>First, the 1 and the 2 share an edge. Then the 4 arrives in a new column and pushes the 6 and the 2 one place to the right. Now no two of the three dice share an edge; the 4 touches the 5 and the 6 instead, which aren’t in the group. Clearing these three isn’t a legal move, so this can’t be a step of a solution.</figcaption>
+      </figure>
+
+      <p>Each step looked reasonable on its own. The only reliable way to know whether an insertion is the reverse of a legal move is to play that move forwards and look at what comes out:</p>
+
+<pre><code><span class="comentario">// The inserted group must be a legal</span>
+<span class="comentario">// move on the new board…</span>
+if (!isValidGroup(next, group)) reject();
+
+<span class="comentario">// …and playing it must give back</span>
+<span class="comentario">// exactly the board we had before.</span>
+if (boardKey(applyMove(next, group))
+    !== boardKey(board)) reject();</code></pre>
+
+      <p>The first check covers the sum and the connection. The second simulates gravity and collapse with the same <code>applyMove</code> the game uses, and compares the result with the previous board, character for character. If anything about the insertion was off, the boards differ and the candidate is thrown away.</p>
+
+      <h3>What the check actually catches</h3>
+      <p>I measured it, because I wanted to know rather than assume. Across 3,500 generated levels in seven different parameter profiles, the simulation never rejected a candidate that the validity check hadn’t already rejected. Connectivity, as in the figure, is the real filter: it turns down between a quarter and a half of all attempts.</p>
+      <p>That isn’t luck. The generator builds on a board where every die knows whether it was inserted in the current step, and only reads coordinates once the step is done. Removing exactly the marked dice gives every column back its original order, because gravity is just a filter that keeps order. And a new column made only of inserted dice disappears in the collapse. With that representation, the inversion is structural.</p>
+      <p>The check stays anyway. What it protects isn’t the generator but <code>applyMove</code>. If I ever add a piece that stops things falling, gravity gets a second stopping rule, the collapse becomes ambiguous, and the inversion stops being structural. That’s exactly where impossible levels would come from, and the check costs one <code>applyMove</code> per accepted step.</p>
+
+      <h2>A board that is just lists</h2>
+      <p>Most of this is easy because of how a board is stored: a list of columns, each listed from the bottom up.</p>
+
+<pre><code><span class="comentario">// A die face; 0 is the joker.</span>
+type Cell = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+<span class="comentario">// One column, from the bottom up.</span>
+type Column = readonly Cell[];
+<span class="comentario">// The columns, from left to right.</span>
+type Board = readonly Column[];</code></pre>
+
+      <p>In this shape, gravity is removing items from a list (the ones above simply move down), and column collapse is removing empty lists. Neither needs index arithmetic, so neither has an off-by-one to get wrong. A board is also valid JSON, so the level files need no serialiser and tests are written as readable literals. And <code>board.map(col =&gt; col.join("")).join("|")</code> is a canonical key, used both for the check above and to memoise the solver.</p>
+      <p>The one subtle rule is adjacency. Columns have different heights, so a die only has a neighbour to the side if that column is tall enough:</p>
+
+<pre><code>(c, r) touches (c - 1, r)
+    only if r &lt; height(c - 1)
+(c, r) touches (c + 1, r)
+    only if r &lt; height(c + 1)</code></pre>
+
+      <p>Forget that condition and every test on a rectangular board still passes. It fails on the first pyramid.</p>
+
+      <h2>Trust, but replay</h2>
+      <p>The generator is designed to be right. The test suite assumes it isn’t.</p>
+      <p>The most valuable test in the project is the round trip: generate a level, then play its stored solution from the start, one move at a time. Every move must be legal on the board at that moment, and the last one must leave the board empty. It runs on 200 levels in each of ten parameter profiles (small, large, tall, wide, with a joker, pairs only, big groups only, pyramid-shaped and so on), plus 2,000 more that check every level adds up to a multiple of 7 and has exactly the size it asked for. There’s no tolerance: a single failure would mean impossible levels in the stores.</p>
+      <p>The engine that runs these tests is the same code that runs in the game and in the generator. It has no dependencies and no access to the browser or to Node, so there’s no second copy to drift out of sync. Nearly a thousand automated tests run before every release.</p>
+      <p>The stored solution ships with the level, too. While you’re still on its path, the hint button just reads the next step. Once you’ve strayed from it, the game runs the solver from wherever you are.</p>
+
+      <h2>Extra rules that keep the solution legal</h2>
+      <p>The later chapters add two rules on top: welded pairs, which leave together or not at all, and ice, which only lets a die leave in a pair. Both fix something I measured. On the biggest boards there were about 35 legal moves in a typical position, but only 6 different combinations; the other 29 were the same sums in other places. The real decision was which of several 5+2s to take, and nothing on the board made that visible.</p>
+      <p>Neither rule is allowed to touch the guarantee. A weld only goes on two stacked dice that the stored solution already clears in the same move. Ice only goes on a die that the solution already clears as part of a pair. So the stored solution stays legal word for word, and the tests replay it again with the rules applied.</p>
+      <p>Welds are only ever vertical, and that isn’t a scoping decision. Two stacked dice fall the same distance after any move, because gravity keeps order, so they stay together for good. A sideways weld would come apart the first time one column fell and the other didn’t. The game would then need a rule for breaking it, and a state that changes mid-level is one more thing the reverse construction would have to undo.</p>
+
+      <h2>Solvable isn’t the same as good</h2>
+      <p>A level with a solution can still be dull, or unfair from the first move. So every candidate is played at random at least a thousand times: each random game picks any legal group and carries on until the board is empty or stuck. The share of games that clear the board, the survival rate, is the main measure of difficulty. Beginner keeps boards that random play clears more than half the time; Expert keeps boards it clears 3 to 22 times in a hundred.</p>
+      <p>Two more checks sit on top:</p>
+      <ul>
+        <li><strong>The fairness floor.</strong> Whatever two moves you open with, the board can still be solved. No level punishes you before you’ve had a chance to read it. (The joker chapters make one exception: spending the joker early is the trap they’re built around.)</li>
+        <li><strong>Greedy-safe boards.</strong> For the early Time Attack boards, the generator searches every reachable state and confirms none is a dead end. With the clock running, you can’t get stuck there, whatever you tap.</li>
+      </ul>
+      <p>None of this uses <code>Math.random()</code>. All randomness comes from an explicit seed, which a lint rule enforces, and each random game gets its own seed, <code>base + index</code>. So the results are the same whatever order the worker threads finish in. Each level stores both its seed and the board itself, so a future change to the generator can’t quietly change a level that’s already out.</p>
+
+      <h2>The bug no metric caught</h2>
+      <p>One mistake passed every check I had. An early version chose the column for each insertion with a weight of <code>(height + 1)^bias</code>, to favour deep placements. That’s a feedback loop: tall columns attract more dice and get taller. With a bias of 3, a column ten dice high was 1,331 times more likely to be picked than a new one.</p>
+      <p>Survival rate, branching and solution length all looked fine. I only saw it when I drew the boards in a console renderer: the Expert candidates averaged 11 columns and 32 rows, with columns up to 42 dice tall. Towers. The fix was to keep the column choice uniform, capped at a target height, and apply the depth bias only to the row within a column.</p>
+      <blockquote><p>Measure, and then look at what you measured.</p></blockquote>
+
+      <h2>If you’re building a puzzle generator</h2>
+      <ul>
+        <li>Make the guarantee come from how a level is built, not from a check afterwards.</li>
+        <li>Verify each step by running it forwards with the real game rules, not by reasoning about why it should work.</li>
+        <li>Write the round-trip test first. It’s cheap, and it’s the one that matters.</li>
+        <li>Measure difficulty instead of guessing it, and seed everything so you can reproduce it.</li>
+        <li>Draw your boards.</li>
+      </ul>
+
+      <section class="artigo-fim">
+        <h2>Try it</h2>
+        <p>DiceToSeven is free on iPhone, iPad and Android: 133 levels, Time Attack, Survival and a new challenge every day. No ads, no purchases, no data collected.</p>
+        <p class="lojas">
+          <a class="pastilha" href="https://apps.apple.com/app/id6830374682" aria-label="Download on the App Store">App Store</a>
+          <a class="pastilha" href="https://play.google.com/store/apps/details?id=com.luiscunha.dicetoseven&amp;hl=en_GB&amp;referrer=utm_source%3Dartigo" aria-label="Get it on Google Play">Google Play</a>
+        </p>
+        <p>Questions, or a level you’re sure is impossible? Write to <a href="mailto:dicetoseven@gmail.com">dicetoseven@gmail.com</a>.</p>
+      </section>
+    </article>
+
+    <footer class="rodape">
+      <a href="./">DiceToSeven</a>
+      <a href="privacy.html">Privacy policy</a>
+      <a href="support.html">Support</a>
+      <span>© 2026 Luís Cunha</span>
+    </footer>
+  </main>
+
+</div>
+</body>
+</html>

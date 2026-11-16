@@ -7,6 +7,7 @@ As páginas públicas do jogo, publicadas no GitHub Pages:
 | `index.html` | Apresentação, e mais tarde os links das lojas |
 | `privacy.html` | A política de privacidade — o link que as duas lojas pedem |
 | `support.html` | O suporte — o link que a App Store pede |
+| `building-levels-backwards.html` | O artigo sobre como cada nível é feito e verificado. Só em inglês: é para o Hacker News e o Reddit |
 
 Cada página tem o texto nos quatro idiomas do jogo, e mostra o da língua do
 dispositivo (inglês quando não é nenhum deles). `?lang=pt`, `en`, `es` ou `fr`

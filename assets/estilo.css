@@ -770,6 +770,306 @@ strong {
   justify-content: center;
 }
 
+/* ─── O artigo: como se faz um nível ─────────────────────────────────────── */
+
+/*
+ * Uma página de leitura longa, só em inglês: é para quem chega do Hacker News
+ * ou do Reddit. A medida do texto fica nos ~68 caracteres da `.pagina`; as
+ * figuras usam a mesma largura e nunca saem dela.
+ */
+.artigo {
+  padding-top: 28px;
+}
+
+.artigo h1 {
+  margin-bottom: 14px;
+}
+
+.artigo .entrada {
+  color: var(--ink);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.artigo h2 {
+  margin-top: 52px;
+  font-size: 1.375rem;
+}
+
+.artigo h3 {
+  margin: 28px 0 6px;
+  color: var(--ink);
+  font-size: 1.0625rem;
+  font-weight: 650;
+}
+
+.artigo ol {
+  margin: 0 0 14px;
+  padding-left: 1.4em;
+  color: var(--ink-soft);
+}
+
+.artigo code {
+  padding: 0.1em 0.35em;
+  border-radius: 6px;
+  background: var(--tint);
+  color: var(--ink);
+  font: 0.875em/1.4 ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+  font-variant-ligatures: none;
+}
+
+/* O código: em bloco, com a mesma tinta das pílulas, e a rolar de lado no telemóvel. */
+.artigo pre {
+  margin: 18px 0 20px;
+  padding: 16px 18px;
+  overflow-x: auto;
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  font: 0.8125rem/1.6 ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+  /* Sem ligaduras: um `!==` desenhado como um só sinal confunde quem lê o código. */
+  font-variant-ligatures: none;
+  tab-size: 2;
+}
+
+.artigo pre code {
+  padding: 0;
+  background: none;
+  font: inherit;
+}
+
+.artigo pre .comentario {
+  color: var(--ink-muted);
+}
+
+.artigo blockquote {
+  margin: 20px 0;
+  padding: 2px 0 2px 18px;
+  border-left: 3px solid var(--face-4);
+  color: var(--ink);
+}
+
+.artigo blockquote p {
+  color: inherit;
+}
+
+/* As figuras: um painel branco, como os cartões, com a legenda por baixo. */
+.figura {
+  margin: 24px 0 28px;
+  padding: 22px 18px 18px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--raio);
+  background: var(--surface);
+  box-shadow: var(--sombra);
+}
+
+.figura figcaption {
+  margin-top: 14px;
+  color: var(--ink-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.figura-par {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px 32px;
+}
+
+.figura-par > div {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.figura-rotulo {
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 650;
+}
+
+.figura-rotulo.recusado {
+  color: #a3412f;
+}
+
+/*
+ * O tabuleiro: colunas de baixo para cima, como no motor. Cada peça é posta por
+ * `transform`, por isso a gravidade e o colapso das colunas animam-se sozinhos
+ * quando o estado muda.
+ */
+.tabuleiro {
+  --lado: 40px;
+  --folga: 5px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.tabuleiro::after {
+  content: "";
+  position: absolute;
+  left: -8px;
+  right: -8px;
+  bottom: -7px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.peca {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  width: var(--lado);
+  height: var(--lado);
+  /* Em px e não em %: a percentagem do padding conta da largura do tabuleiro, não da peça. */
+  padding: calc(var(--lado) * 0.17);
+  border-radius: 21%;
+  background: var(--face);
+  transition: transform 420ms cubic-bezier(0.3, 1.25, 0.5, 1), opacity 260ms ease;
+}
+
+.peca i {
+  width: 72%;
+  height: 72%;
+  place-self: center;
+  border-radius: 50%;
+  background: var(--tinta);
+}
+
+.peca[data-v="1"] { --face: #cfe3f2; --tinta: #123f3a; }
+.peca[data-v="2"] { --face: #a9cbe8; --tinta: #123f3a; }
+.peca[data-v="3"] { --face: #74c8b0; --tinta: #0e3b33; }
+.peca[data-v="4"] { --face: #3ebb94; --tinta: #0c332c; }
+.peca[data-v="5"] { --face: #2a8c77; --tinta: #eaf5f1; }
+.peca[data-v="6"] { --face: #1b6b62; --tinta: #e8f3f0; }
+
+/* O grupo da vez: um anel escuro, separado da peça por um fio branco. */
+.peca.marcada {
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 5px var(--ink);
+}
+
+.peca.fantasma {
+  opacity: 0.45;
+  outline: 2px dashed var(--ink);
+  outline-offset: 3px;
+}
+
+.peca.fora {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Os controlos da demonstração. */
+.demo-legenda {
+  min-height: 3em;
+  margin: 22px 0 12px;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.demo-controlos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.demo-controlos button {
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: 600 0.875rem/1.2 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.demo-controlos button:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--tint);
+}
+
+.demo-controlos button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.demo-controlos button:disabled {
+  color: var(--ink-muted);
+  cursor: default;
+  opacity: 0.55;
+}
+
+.demo-controlos .principal {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--on-accent);
+}
+
+.demo-controlos .principal:hover:not(:disabled) {
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+}
+
+.demo-passos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-passos li {
+  margin: 0;
+  padding: 3px 10px;
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  color: var(--ink-muted);
+  font: 0.8125rem/1.4 ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.demo-passos li.feito {
+  border-color: var(--tint);
+  background: var(--tint);
+  color: var(--ink);
+}
+
+.demo-passos li.agora {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--on-accent);
+}
+
+/* O fecho do artigo: as lojas outra vez, para quem leu até ao fim. */
+.artigo-fim {
+  /* O halo das pílulas fica atrás delas com `z-index: -1`; sem isto, ficava atrás do fundo. */
+  isolation: isolate;
+  margin-top: 56px;
+  padding: 28px 22px;
+  border-radius: var(--raio);
+  background: var(--tint);
+  text-align: center;
+}
+
+.artigo-fim h2 {
+  margin-top: 0;
+}
+
+.artigo-fim .lojas {
+  justify-content: center;
+}
+
 /* ─── Ecrãs largos ───────────────────────────────────────────────────────── */
 
 @media (min-width: 720px) {
